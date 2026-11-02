@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amarillo Bank | Ingresar</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="login-body">
+    <div class="login-wrapper">
+        <a href="index.html" class="back">← Volver al inicio</a>
+        <div class="login-card">
+            <div class="logo" style="margin-bottom:15px;font-size:26px">amarillo<span>bank</span></div>
+            <h2>Ingresa a tu cuenta</h2>
+            <p>Banca Virtual Amarillo Bank</p>
+            
+            <input type="text" id="user" placeholder="Usuario o Cédula">
+            <input type="password" id="pass" placeholder="Contraseña">
+            
+            <button id="btnEntrar" class="btn-morado-full">Entrar</button>
+            
+            <span class="link">¿Olvidaste tu contraseña?</span>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("btnEntrar").addEventListener("click", () => {
+            const user = document.getElementById("user").value;
+            if(user === ""){
+                alert("Escribe tu usuario para la demo");
+                return;
+            }
+            // Guarda el usuario y entra
+            localStorage.setItem("usuarioAmarillo", user);
+            window.location.href = "dashboard.html";
+        });
+    </script>
+</body>
+</html>
