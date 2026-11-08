@@ -1,32 +1,40 @@
-// main.js - en la raiz de amarillobank_frontend
-const API_URL = "http://localhost:8080/api/clientes";
-
 const btn = document.getElementById("btnCrear");
 
-if (btn) {
-  btn.addEventListener("click", async () => {
-    const datos = {
-      cedula: document.getElementById("cedula").value,
-      nombre: document.getElementById("nombre").value
-    };
+btn.addEventListener("click", async () => {
+  
 
-    console.log("Enviando a backend:", datos);
+  const cedulaInput = document.getElementById("cedula");
+  const nombreInput = document.getElementById("nombre");
 
-    try {
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(datos)
-      });
+  if (cedulaInput.value.trim() === "" || nombreInput.value.trim() === "") {
+    alert("Llena cedula y nombre");
+    return;
+  }
 
-      const respuesta = await res.json();
-      console.log("Backend respondió:", respuesta);
-      alert("¡Cuenta creada! Ya está en MySQL");
-      window.location.href = "login.html";
+  const datos = {
+    cedula: cedulaInput.value,
+    nombre: nombreInput.value
+  };
 
-    } catch (error) {
-      console.error(error);
-      alert("No se pudo conectar al backend. ¿Dejaste IntelliJ corriendo?");
+  console.log("Enviando al Handler:", datos);
+
+  try {
+  
+    const res = await fetch("http://localhost:8080/api/clientes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(datos)
+    });
+
+    if (res.ok) {
+      alert("Cliente agragado AmarilloBank");
+      
+    } else {
+      alert("Error del backend");
     }
-  });
-}
+
+  } catch (e) {
+    console.error(e);
+    alert("No conecta con el backend. ¿Corriste el Main en IntelliJ?");
+  }
+});
